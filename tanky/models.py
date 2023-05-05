@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from simple_history.models import HistoricalRecords
 
 class Tank(models.Model):
@@ -21,8 +22,11 @@ class Tank(models.Model):
     )
     substrate = models.CharField(max_length=255)
     filter_media = models.CharField(max_length=255)
-    notes = models.TextField()
+    notes = models.TextField(blank=True, null=True)
     history = HistoricalRecords()
+
+    def get_absolute_url(self):
+        return reverse('tank_detail', kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.name
@@ -33,7 +37,7 @@ class Inhabitant(models.Model):
     species = models.CharField(max_length=255)
     quantity = models.PositiveIntegerField()
     tank = models.ForeignKey(Tank, on_delete=models.CASCADE)
-    notes = models.TextField()
+    notes = models.TextField(blank=True, null=True)
     history = HistoricalRecords()
 
     def __str__(self):
@@ -49,7 +53,7 @@ class WaterTest(models.Model):
     nitrate_level = models.DecimalField(max_digits=5, decimal_places=2)
     ph_level = models.DecimalField(max_digits=5, decimal_places=2)
     salinity = models.DecimalField(max_digits=5, decimal_places=2)
-    notes = models.TextField()
+    notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.tank.name} - {self.date_tested}"
@@ -61,6 +65,7 @@ class Spawn(models.Model):
     fry_quantity = models.IntegerField(blank=True, null=True)
     tank = models.ForeignKey(Tank, on_delete=models.CASCADE)
     water_test = models.ForeignKey(WaterTest, on_delete=models.SET_NULL, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
     history = HistoricalRecords()
 
     def __str__(self):

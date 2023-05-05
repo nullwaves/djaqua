@@ -21,5 +21,7 @@ from tanky import views
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('tank/new', views.TankCreateView.as_view(), name='tank_create'),
+    path('tank/<int:pk>/', views.TankDetailView.as_view(), name='tank_detail'),
     path('admin/', admin.site.urls),
 ]

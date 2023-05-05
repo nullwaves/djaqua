@@ -1,0 +1,20 @@
+{% extends 'tanky/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block bootstrap5_content %}
+    <div class="row mt-3">
+        <div class="col">
+            <h2>Water Test Form</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% bootstrap_button button_type="submit" content="OK" %}
+            {% bootstrap_button button_type="reset" content="Cancel" %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
