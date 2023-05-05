@@ -61,6 +61,7 @@ class Spawn(models.Model):
     fry_quantity = models.IntegerField(blank=True, null=True)
     tank = models.ForeignKey(Tank, on_delete=models.CASCADE)
     water_test = models.ForeignKey(WaterTest, on_delete=models.SET_NULL, blank=True, null=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return f"{self.breeders.all()} - {self.spawn_date}"
