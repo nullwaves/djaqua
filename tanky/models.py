@@ -21,6 +21,7 @@ class Tank(models.Model):
     )
     substrate = models.CharField(max_length=255)
     filter_media = models.CharField(max_length=255)
+    notes = models.TextField()
     history = HistoricalRecords()
 
     def __str__(self):
@@ -41,13 +42,25 @@ class Inhabitant(models.Model):
 
 class WaterTest(models.Model):
     tank = models.ForeignKey(Tank, on_delete=models.CASCADE)
+    date_tested = models.DateField()
     temperature = models.DecimalField(max_digits=5, decimal_places=2) 
     ammonia_level = models.DecimalField(max_digits=5, decimal_places=4)
     nitrite_level = models.DecimalField(max_digits=5, decimal_places=4)
     nitrate_level = models.DecimalField(max_digits=5, decimal_places=2)
     ph_level = models.DecimalField(max_digits=5, decimal_places=2)
     salinity = models.DecimalField(max_digits=5, decimal_places=2)
-    date_tested = models.DateField()
+    notes = models.TextField()
 
     def __str__(self):
         return f"{self.tank.name} - {self.date_tested}"
+
+class Spawn(models.Model):
+    spawn_date = models.DateField()
+    breeders = models.ManyToManyField(Inhabitant, related_name='spawns_produced')
+    hatch_date = models.DateField(blank=True, null=True)
+    fry_quantity = models.IntegerField(blank=True, null=True)
+    tank = models.ForeignKey(Tank, on_delete=models.CASCADE)
+    water_test = models.ForeignKey(WaterTest, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.breeders.all()} - {self.spawn_date}"
