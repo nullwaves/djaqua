@@ -1,0 +1,7 @@
+{% extends 'django_bootstrap5/bootstrap5.html' %}
+
+{% block bootstrap5_title %} Tanky - {% block tanky_title %}Tanky{% endblock %}{% endblock %}
+
+{% block bootstrap5_before_content %}
+    {% include 'tanky/nav.html' %}
+{% endblock %}
