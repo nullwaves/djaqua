@@ -1,0 +1,32 @@
+{% extends 'tanky/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block bootstrap5_content %}
+    <div class="row mt-3">
+        <div class="col">
+            <h2>Spawn Detail</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <ul>
+                <li><strong>Spawn Date:</strong> {{ object.spawn_date }}</li>
+                <li><strong>Breeders:</strong>
+                    <ul>
+                        {% for breeder in object.breeders.all %}
+                            <li>{{ breeder.name }} - {{ breeder.species }}</li>
+                        {% empty %}
+                            <li>No breeders associated with this spawn.</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><strong>Hatch Date:</strong> {{ object.hatch_date }}</li>
+                <li><strong>Fry Quantity:</strong> {{ object.fry_quantity }}</li>
+                <li><strong>Tank:</strong> {{ object.tank.name }}</li>
+                <li><strong>Water Test:</strong> {% if object.water_test %}{{ object.water_test }}{% else %}No water test associated with this spawn.{% endif %}</li>
+                <li><strong>Notes:</strong> {{ object.notes }}</li>
+                <li><strong>History:</strong> {{ object.history }}</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

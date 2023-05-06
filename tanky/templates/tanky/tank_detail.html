@@ -21,4 +21,47 @@
             </ul>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <h3>Inhabitants</h3>
+            <ul>
+                {% for inhabitant in object.inhabitants.all %}
+                    <li>{{ inhabitant.name }} ({{ inhabitant.species }})</li>
+                {% empty %}
+                    <li>No inhabitants found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Water Tests</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>pH</th>
+                        <th>Nitrite</th>
+                        <th>Nitrate</th>
+                        <th>Ammonia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for watertest in object.watertests.all|slice:"7" %}
+                        <tr>
+                            <td>{{ watertest.test_date|date:"F j, Y" }}</td>
+                            <td>{{ watertest.ph }}</td>
+                            <td>{{ watertest.nitrite }}</td>
+                            <td>{{ watertest.nitrate }}</td>
+                            <td>{{ watertest.ammonia }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5">No water tests found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

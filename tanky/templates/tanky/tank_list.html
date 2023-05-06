@@ -1,0 +1,52 @@
+{% extends 'tanky/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block bootstrap5_content %}
+  <div class="row mt-3">
+    <div class="col">
+      <h1>Tank List</h1>
+    </div>
+    <div class="col">
+      <div class="float-end my-1">
+        <a class="btn btn-primary" href="{% url 'tank_create' %}">Add Tank</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Volume</th>
+            <th>Type</th>
+            <th>Substrate</th>
+            <th>Filtration</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tank in object_list %}
+            <tr>
+              <td><a href="{% url 'tank_detail' tank.pk %}">{{ tank.name }}</a></td>
+              <td>{{ tank.location }}</td>
+              <td>{{ tank.volume }} gallons</td>
+              <td>{{ tank.get_tank_type_display }}</td>
+              <td>{{ tank.substrate }}</td>
+              <td>{{ tank.filter_media }}</td>
+              <td>
+                <a class="btn btn-primary" href="{% url 'tank_edit' tank.pk %}">Edit</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="7">No tanks found.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

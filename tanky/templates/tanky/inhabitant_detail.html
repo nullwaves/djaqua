@@ -1,0 +1,22 @@
+{% extends 'tanky/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block bootstrap5_content %}
+    <div class="row mt-3">
+        <div class="col">
+            <h2>Inhabitant Detail</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <ul>
+                <li><strong>Name:</strong> {{ object.name }}</li>
+                <li><strong>Species:</strong> {{ object.species }}</li>
+                <li><strong>Quantity:</strong> {{ object.quantity }}</li>
+                <li><strong>Tank:</strong> {{ object.tank }}</li>
+                <li><strong>Notes:</strong> {{ object.notes }}</li>
+                <li><strong>History:</strong> {{ object.history }}</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

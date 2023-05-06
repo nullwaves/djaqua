@@ -12,7 +12,7 @@ class Tank(models.Model):
         (SALTWATER, 'Saltwater'),
     ]
 
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     location = models.CharField(max_length=255)
     volume = models.IntegerField()
     tank_type = models.CharField(
@@ -69,4 +69,5 @@ class Spawn(models.Model):
     history = HistoricalRecords()
 
     def __str__(self):
-        return f"{self.breeders.all()} - {self.spawn_date}"
+        breeders = ', '.join(str(breeder.name) for breeder in self.breeders.all())
+        return f"{breeders} - {self.spawn_date}"

@@ -10,9 +10,16 @@ from .models import Inhabitant, Tank, Spawn, WaterTest
 class IndexView(TemplateView):
     template_name = 'tanky/base.html'
 
+class TankListView(ListView):
+    model = Tank
+
 class TankCreateView(CreateView):
     model = Tank
     fields = ['name', 'location', 'volume', 'tank_type', 'substrate', 'filter_media', 'notes']
+
+class TankEditView(UpdateView):
+    model = Tank
+    fields = ['location', 'tank_type', 'substrate', 'filter_media', 'notes']
 
 class TankDetailView(DetailView):
     model = Tank

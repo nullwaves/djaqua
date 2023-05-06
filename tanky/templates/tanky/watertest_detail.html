@@ -1,0 +1,25 @@
+{% extends 'tanky/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block bootstrap5_content %}
+    <div class="row mt-3">
+        <div class="col">
+            <h2>Water Test Detail</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <ul>
+                <li><strong>Tank:</strong> {{ object.tank.name }}</li>
+                <li><strong>Date Tested:</strong> {{ object.date_tested }}</li>
+                <li><strong>Temperature:</strong> {{ object.temperature }}</li>
+                <li><strong>Ammonia Level:</strong> {{ object.ammonia_level }}</li>
+                <li><strong>Nitrite Level:</strong> {{ object.nitrite_level }}</li>
+                <li><strong>Nitrate Level:</strong> {{ object.nitrate_level }}</li>
+                <li><strong>pH Level:</strong> {{ object.ph_level }}</li>
+                <li><strong>Salinity:</strong> {{ object.salinity }}</li>
+                <li><strong>Notes:</strong> {{ object.notes }}</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

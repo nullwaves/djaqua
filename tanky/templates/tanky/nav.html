@@ -7,8 +7,13 @@
 
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% url 'index' as index %}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+            <a class="nav-link {% if request.path == index %}active" aria-current="page{% endif %}" href="{{ index }}">Home</a>
+          </li>
+          {% url 'tank_list' as tank_list %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == tank_list %}active" aria-current="page{% endif %}" href="{{ tank_list }}">Tanks</a>
           </li>
         </ul>
       </div>
