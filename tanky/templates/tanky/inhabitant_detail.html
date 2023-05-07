@@ -16,7 +16,7 @@
         <div class="col">
             <ul>
                 <li><strong>Name:</strong> {{ object.name }}</li>
-                <li><strong>Species:</strong> {{ object.species }}</li>
+                <li><strong>Species:</strong> <i>{{ object.species }}</i></li>
                 <li><strong>Quantity:</strong> {{ object.quantity }}</li>
                 <li><strong>Tank:</strong> <a href="{% url 'tank_detail' object.tank.pk %}">{{ object.tank }}</a></li>
                 <li><strong>Notes:</strong> {{ object.notes }}</li>

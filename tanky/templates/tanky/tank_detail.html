@@ -48,7 +48,7 @@
         <div class="col">
             <ul>
                 {% for inhabitant in object.inhabitant_set.all %}
-                    <li><a href="{% url 'fish_detail' inhabitant.pk %}">{{ inhabitant.name }}</a> - {{ inhabitant.quantity }}x {{ inhabitant.species }}</li>
+                    <li><a href="{% url 'fish_detail' inhabitant.pk %}">{{ inhabitant.name }}</a> - {{ inhabitant.quantity }}x <i>{{ inhabitant.species }}</i></li>
                 {% empty %}
                     <li>No inhabitants found.</li>
                 {% endfor %}
@@ -71,6 +71,7 @@
                 <thead>
                     <tr>
                         <th>Date</th>
+                        <th>Temp.</th>
                         <th>pH</th>
                         <th>Nitrite</th>
                         <th>Nitrate</th>
@@ -81,6 +82,7 @@
                     {% for watertest in object.watertest_set.all|slice:"7" %}
                         <tr>
                             <td><a href="{% url 'watertest_detail' watertest.pk %}">{{ watertest.date_tested|date:"F j, Y" }}</a></td>
+                            <td>{{ watertest.temperature }} F</td>
                             <td>{{ watertest.ph_level }}</td>
                             <td>{{ watertest.nitrite_level }} ppm</td>
                             <td>{{ watertest.nitrate_level }} ppm</td>
