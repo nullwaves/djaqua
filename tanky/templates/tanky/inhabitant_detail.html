@@ -6,6 +6,11 @@
         <div class="col">
             <h2>Inhabitant Detail</h2>
         </div>
+        <div class="col">
+            <div class="float-end my-1">
+                <a class="btn btn-primary" href="{% url 'fish_edit' object.pk %}">Edit</a>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -13,9 +18,17 @@
                 <li><strong>Name:</strong> {{ object.name }}</li>
                 <li><strong>Species:</strong> {{ object.species }}</li>
                 <li><strong>Quantity:</strong> {{ object.quantity }}</li>
-                <li><strong>Tank:</strong> {{ object.tank }}</li>
+                <li><strong>Tank:</strong> <a href="{% url 'tank_detail' object.tank.pk %}">{{ object.tank }}</a></li>
                 <li><strong>Notes:</strong> {{ object.notes }}</li>
-                <li><strong>History:</strong> {{ object.history }}</li>
+                <li><strong>History:</strong>
+                    <ul>
+                        {% for historical in object.history.all %}
+                            <li>{{ historical.history_date }}</li>
+                        {% empty %}
+                            <li>No historical records found.</li>
+                        {% endfor %}
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

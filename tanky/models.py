@@ -40,6 +40,9 @@ class Inhabitant(models.Model):
     notes = models.TextField(blank=True, null=True)
     history = HistoricalRecords()
 
+    def get_absolute_url(self):
+        return reverse('fish_detail', kwargs={"pk": self.pk})
+
     def __str__(self):
         return self.name
 
@@ -54,6 +57,9 @@ class WaterTest(models.Model):
     ph_level = models.DecimalField(max_digits=5, decimal_places=2)
     salinity = models.DecimalField(max_digits=5, decimal_places=2)
     notes = models.TextField(blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('watertest_detail', kwargs={'pk':self.pk})
 
     def __str__(self):
         return f"{self.tank.name} - {self.date_tested}"

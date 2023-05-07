@@ -25,7 +25,15 @@
                 <li><strong>Tank:</strong> {{ object.tank.name }}</li>
                 <li><strong>Water Test:</strong> {% if object.water_test %}{{ object.water_test }}{% else %}No water test associated with this spawn.{% endif %}</li>
                 <li><strong>Notes:</strong> {{ object.notes }}</li>
-                <li><strong>History:</strong> {{ object.history }}</li>
+                <li><strong>History:</strong>
+                    <ul>
+                        {% for historical in object.history.all %}
+                            <li>{{ historical.history_date }}</li>
+                        {% empty %}
+                            <li>No historical records found.</li>
+                        {% endfor %}
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

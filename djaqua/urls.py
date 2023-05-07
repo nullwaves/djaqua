@@ -24,6 +24,11 @@ urlpatterns = [
     path('tanks/', views.TankListView.as_view(), name='tank_list'),
     path('tank/new', views.TankCreateView.as_view(), name='tank_create'),
     path('tank/<int:pk>/', views.TankDetailView.as_view(), name='tank_detail'),
+    path('tank/<int:pk>/new', views.InhabitantCreateView.as_view(), name='fish_create'),
+    path('tank/<int:pk>/test', views.WaterTestCreateView.as_view(), name='watertest_create'),
     path('tank/<int:pk>/edit', views.TankEditView.as_view(), name='tank_edit'),
+    path('test/<int:pk>/', views.WaterTestDetailView.as_view(), name='watertest_detail'),
+    path('fish/<int:pk>/', views.InhabitantDetailView.as_view(), name='fish_detail'),
+    path('fish/<int:pk>/edit', views.InhabitantEditView.as_view(), name='fish_edit'),
     path('admin/', admin.site.urls),
 ]

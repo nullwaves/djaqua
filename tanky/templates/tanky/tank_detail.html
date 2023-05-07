@@ -6,6 +6,11 @@
         <div class="col">
             <h2>Tank Detail</h2>
         </div>
+        <div class="col">
+            <div class="float-end my-1">
+                <a class="btn btn-primary" href="{% url 'tank_edit' object.pk %}">Edit</a>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -17,16 +22,33 @@
                 <li><strong>Substrate:</strong> {{ object.substrate }}</li>
                 <li><strong>Filtration:</strong> {{ object.filter_media }}</li>
                 <li><strong>Notes:</strong> {{ object.notes }}</li>
-                <li><strong>History:</strong> {{ object.history }}</li>
+                <li><strong>History:</strong>
+                    <ul>
+                        {% for historical in object.history.all %}
+                            <li>{{ historical.history_date }}</li>
+                        {% empty %}
+                            <li>No historical records found.</li>
+                        {% endfor %}
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <h3>Inhabitants</h3>
+        </div>
+        <div class="col">
+            <div class="float-end my-1">
+                <a class="btn btn-primary" href="{% url 'fish_create' object.pk %}">New Inhabitant</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             <ul>
-                {% for inhabitant in object.inhabitants.all %}
-                    <li>{{ inhabitant.name }} ({{ inhabitant.species }})</li>
+                {% for inhabitant in object.inhabitant_set.all %}
+                    <li><a href="{% url 'fish_detail' inhabitant.pk %}">{{ inhabitant.name }}</a> - {{ inhabitant.quantity }}x {{ inhabitant.species }}</li>
                 {% empty %}
                     <li>No inhabitants found.</li>
                 {% endfor %}
@@ -36,6 +58,15 @@
     <div class="row">
         <div class="col">
             <h3>Water Tests</h3>
+        </div>
+        <div class="col">
+            <div class="float-end my-1">
+                <a class="btn btn-primary" href="{% url 'watertest_create' object.pk %}">New Test</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             <table class="table">
                 <thead>
                     <tr>
@@ -47,13 +78,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for watertest in object.watertests.all|slice:"7" %}
+                    {% for watertest in object.watertest_set.all|slice:"7" %}
                         <tr>
-                            <td>{{ watertest.test_date|date:"F j, Y" }}</td>
-                            <td>{{ watertest.ph }}</td>
-                            <td>{{ watertest.nitrite }}</td>
-                            <td>{{ watertest.nitrate }}</td>
-                            <td>{{ watertest.ammonia }}</td>
+                            <td><a href="{% url 'watertest_detail' watertest.pk %}">{{ watertest.date_tested|date:"F j, Y" }}</a></td>
+                            <td>{{ watertest.ph_level }}</td>
+                            <td>{{ watertest.nitrite_level }} ppm</td>
+                            <td>{{ watertest.nitrate_level }} ppm</td>
+                            <td>{{ watertest.ammonia_level }} ppm</td>
                         </tr>
                     {% empty %}
                         <tr>
